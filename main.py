@@ -61,7 +61,7 @@ if video1 != "" and youtuberName != "":
         print("regenerating search index vector store..")
         # It uses OpenAI API to create embeddings (i.e. a feature vector)
         # https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture
-        vectorStore = FAISS.from_documents(chunks, OpenAIEmbeddings(openai_api_key=OPENAI_KEY))
+        vectorStore = FAISS.from_texts(chunks, OpenAIEmbeddings(openai_api_key=OPENAI_KEY))
         with open("vectorstore.pkl", "wb") as f:
             pickle.dump(vectorStore, f)
 
