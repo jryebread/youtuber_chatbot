@@ -10,6 +10,8 @@ from langchain.chains import ChatVectorDBChain
 from langchain.prompts import PromptTemplate
 from pathlib import Path
 import os
+import openai
+
 load_dotenv()
 import streamlit as st
 OPENAI_KEY = os.getenv('OPENAI_KEY')
