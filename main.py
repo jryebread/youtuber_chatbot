@@ -53,17 +53,17 @@ if video1 != "" and youtuberName != "":
     chunks = text_splitter.split_text(finalString)
     vectorStorePkl = Path("vectorstore.pkl")
     vectorStore = None
-    if vectorStorePkl.is_file():
-        print("vector index found.. ")
-        with open('vectorstore.pkl', 'rb') as f:
-            vectorStore = pickle.load(f)
-    else:
-        print("regenerating search index vector store..")
-        # It uses OpenAI API to create embeddings (i.e. a feature vector)
-        # https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture
-        vectorStore = FAISS.from_texts(chunks, OpenAIEmbeddings(openai_api_key=OPENAI_KEY))
-        with open("vectorstore.pkl", "wb") as f:
-            pickle.dump(vectorStore, f)
+    # if vectorStorePkl.is_file():
+    #     print("vector index found.. ")
+    #     with open('vectorstore.pkl', 'rb') as f:
+    #         vectorStore = pickle.load(f)
+    # else:
+    print("regenerating search index vector store..")
+    # It uses OpenAI API to create embeddings (i.e. a feature vector)
+    # https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture
+    vectorStore = FAISS.from_texts(chunks, OpenAIEmbeddings(openai_api_key=OPENAI_KEY))
+    with open("vectorstore.pkl", "wb") as f:
+        pickle.dump(vectorStore, f)
 
     qa = ChatVectorDBChain.from_llm(OpenAI(temperature=0, openai_api_key=OPENAI_KEY),
                                     vectorstore=vectorStore, qa_prompt=QA_PROMPT)
